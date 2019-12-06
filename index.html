@@ -15,19 +15,19 @@
     <div id="wrapper" class="fade-in">
         <br /> <br />
         <!-- Intro -->
-               <div id="intro">
-                   <br /> <br /><br /><br />
-                   <h1>
-                       峰群<br />
-                       Feng Chiun
-                   </h1>
-                   <p>
+        <div id="intro">
+            <br /> <br /><br /><br />
+            <h1>
+                峰群<br />
+                Feng Chiun
+            </h1>
+            <p>
 
-                   </p>
-                   <ul class="actions">
-                       <li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
-                   </ul>
-               </div>
+            </p>
+            <ul class="actions">
+                <li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+            </ul>
+        </div>
 
         <!-- Header -->
         <header id="header">
@@ -45,7 +45,7 @@
                 <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
                 <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
                 <!--<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-            <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>-->
+                <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>-->
             </ul>
         </nav>
 
@@ -63,8 +63,8 @@
                 </header>
                 <a href="#" class="image main"><img src="images/pic01.jpg" alt="" /></a>
                 <!--<ul class="actions special">
-                <li><a href="#" class="button large">詳文</a></li>
-            </ul>-->
+                    <li><a href="#" class="button large">詳文</a></li>
+                </ul>-->
             </article>
 
             <!-- Posts -->
@@ -153,13 +153,13 @@
             <!--<div class="pagination">-->
             <!--<a href="#" class="previous">Prev</a>-->
             <!--<a href="#" class="page active">1</a>
-        <a href="#" class="page">2</a>
-        <a href="#" class="page">3</a>
-        <span class="extra">&hellip;</span>
-        <a href="#" class="page">8</a>
-        <a href="#" class="page">9</a>
-        <a href="#" class="page">10</a>
-        <a href="#" class="next">Next</a>-->
+            <a href="#" class="page">2</a>
+            <a href="#" class="page">3</a>
+            <span class="extra">&hellip;</span>
+            <a href="#" class="page">8</a>
+            <a href="#" class="page">9</a>
+            <a href="#" class="page">10</a>
+            <a href="#" class="next">Next</a>-->
             <!--</div>-->
             <!--  --><!--</footer>-->
 
@@ -167,25 +167,27 @@
 
         <!-- Footer -->
         <footer id="footer">
-            <section>
-                <form method="post" action="#">
+            <section onload="init()">
+                <form name='sendmail' action='mailto:Feng.chiun888@gmail.com'>
                     <div class="fields">
                         <div class="field">
-                            <label for="name">姓名</label>
-                            <input type="text" name="name" id="name" />
+                            <div class="field">
+                                <label for="email">副本發送</label>
+                                <input id="ccText" name="cc" value='happy4001130@gmail.com' placeholder="副本發送網址" readonly type="email" />
+                            </div>
+                            <label for="name">主旨</label>
+                            <input id="subText" name="subject" value='' placeholder="相關詢問內容" type="text" />
                         </div>
-                        <div class="field">
-                            <label for="email">Email</label>
-                            <input type="text" name="email" id="email" />
-                        </div>
+
                         <div class="field">
                             <label for="message">留言</label>
-                            <textarea name="message" id="message" rows="3"></textarea>
+                            <textarea id="bodyText" name="body" value='' placeholder="請留下姓名/連絡電話" type="text" cols=100 rows=5 required></textarea>
                         </div>
                     </div>
                     <ul class="actions">
-                        <li><input type="submit" value="送出" /></li>
+                        <li><input onclick="submitHandler();" name="btSend" type="submit" value="送出" /></li>
                     </ul>
+                    <a href="mailto:" id="mailTo"></a>
                 </form>
             </section>
             <section class="split contact">
@@ -209,7 +211,7 @@
                         <!--<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>-->
                         <li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
                         <!--<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-                    <li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>-->
+                        <li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>-->
                     </ul>
                 </section>
             </section>
@@ -227,6 +229,43 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            Date.prototype.toString = function () {
+                var d = new Date();
+                var ret = d.getYear();
+                var m = d.getMonth() + 1;
+                ret += m.length > 1 ? m : '0' + m;
+                var date = d.getDate();
+                ret += date.length > 1 ? date : '0' + date;
+                return ret;
+            }
+            var initSubject = '' + new Date().toString(), initTo = 'happy4001130@gmail.com', initCC = 'happy4001130@gmail.com', initBody ='';
+            function submitHandler1() {
+                var subject = subText.value;
+                var to = toText.value;
+                var cc = ccText.value;
+                var body = bodyText.value;
+                mailTo.href = "mailto:" + to + "?cc=" + cc + "&subject=" + subject +"&body="+body;
+                mailTo.click();
+            }
+            function init() {
+                subText.value = initSubject;
+                toText.value = initTo;
+                ccText.value = initCC;
+                bodyText.value = initBody;
+            }
+            function checkClientOutLook() {
+                if (new ActiveXObject("Outlook.Application")) {
+                    return true;
+                }
+                else {
+                    alert("無法执行该操作!請改用電話聯絡");
+                    return false;
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
